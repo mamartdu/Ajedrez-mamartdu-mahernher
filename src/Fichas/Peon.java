@@ -1,5 +1,7 @@
 package Fichas;
 
+import Juego.Tablero;
+
 public class Peon  extends Pieza{
 
 	public Peon(String color) {
@@ -7,7 +9,7 @@ public class Peon  extends Pieza{
 	}
 
 	@Override
-	public boolean[][] movimientosPosibles(int x, int y) {
+	public boolean[][] movimientosPosibles(Tablero tablero) {
 		return null;
 	}
 
