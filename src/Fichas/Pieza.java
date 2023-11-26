@@ -5,17 +5,18 @@ import java.io.Serializable;
 import Juego.Tablero;
 
 public abstract class Pieza implements Serializable{
-	    private String color;
+	    private int color;
 	    private int x;
 	    private int y;
 	    
 	    
-	    public Pieza(String color) {
+	    public Pieza(int color,int x ,int y) {
 	        this.color = color;
-
+	        this.x = x;
+	        this.y= y;
 	    }
 	    
-	    public String getColor() {
+	    public int getColor() {
 	        return color;
 	    }
 

@@ -4,8 +4,8 @@ import Juego.Tablero;
 
 public class Dama extends Pieza{
 
-	public Dama(String color) {
-		super(color);
+	public Dama(int color,int x,int y) {
+		super(color,x,y);
 		// TODO Auto-generated constructor stub
 	}
 
