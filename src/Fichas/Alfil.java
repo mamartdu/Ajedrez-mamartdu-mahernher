@@ -4,8 +4,8 @@ import Juego.Tablero;
 
 public class Alfil extends Pieza{
 
-	public Alfil(String color) {
-		super(color);
+	public Alfil(int color,int x,int y) {
+		super(color,x,y);
 		// TODO Auto-generated constructor stub
 	}
 

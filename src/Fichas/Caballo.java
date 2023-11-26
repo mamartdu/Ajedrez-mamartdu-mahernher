@@ -4,8 +4,8 @@ import Juego.Tablero;
 
 public class Caballo  extends Pieza{
 
-	public Caballo(String color) {
-		super(color);
+	public Caballo(int color,int x,int y) {
+		super(color,x,y);
 		// TODO Auto-generated constructor stub
 	}
 

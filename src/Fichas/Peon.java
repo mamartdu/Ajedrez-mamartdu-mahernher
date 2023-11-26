@@ -4,8 +4,8 @@ import Juego.Tablero;
 
 public class Peon  extends Pieza{
 
-	public Peon(String color) {
-		super(color);
+	public Peon(int color,int x,int y) {
+		super(color,x,y);
 	}
 
 	@Override

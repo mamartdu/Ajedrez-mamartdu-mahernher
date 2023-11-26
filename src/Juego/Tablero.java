@@ -44,4 +44,15 @@ public class Tablero implements Serializable{
 		
 	}
 	
+	public void colocarPieza(Pieza pieza) {
+		
+		int x = pieza.getX();
+		int y = pieza.getY();
+		
+		this.tablero[x][y] = pieza;
+	
+		pieza.setX(x);
+		pieza.setY(y);
+	}
+	
 }
