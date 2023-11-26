@@ -6,7 +6,7 @@ import java.net.Socket;
 import setup.Constantes;
 
 public class Partida implements Runnable {
-	
+	private Juego juego;
 	private Tablero tablero;
 	private Jugador j1 = null, j2 = null;
 	private boolean jaqueMate = false;
@@ -50,6 +50,7 @@ public class Partida implements Runnable {
 	
 
 	public void jugar() {
+		juego = new Juego();
 		tablero = new Tablero();
 		
 		try (	
@@ -62,11 +63,26 @@ public class Partida implements Runnable {
 			while (!getJaqueMate()) {
 				outputJugador1.writeObject(tablero);
 				tablero = (Tablero) inputJugador1.readObject();
+				if(juego.isTurnoNegras()) {
+					//MUEVEN NEGRAS
+					//Deberia ser 
+					//juego.muevesPieza();
+					//Dentro de muevesPieza , cambiamos turno
+				}
+				
+				outputJugador2.writeObject(tablero);
+				
+				if(!getJaqueMate() && juego.isTurnoBlancas()) {
+					//MUEVEN BLANCAS
+					//Deberia ser 
+					//juego.muevesPieza();
+					//Dentro de muevesPieza , cambiamos turno
+				}
 				
 			}
 			
 		}catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 
