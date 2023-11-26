@@ -1,7 +1,8 @@
+package Juego;
 import java.net.Socket;
 
 public class Partida {
-	// private Tablero tablero;
+	private Tablero tablero;
 	private Jugador j1 = null, j2 = null;
 
 	public Partida(Socket s) {
@@ -13,7 +14,7 @@ public class Partida {
 		}
 	}
 
-	public void addPlayer(Socket s) {
+	public void addJugador(Socket s) {
 		j2 = new Jugador(s, false);
 	}
 

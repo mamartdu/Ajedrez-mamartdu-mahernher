@@ -1,3 +1,4 @@
+package Juego;
 import java.net.Socket;
 
 public class Jugador {
