@@ -1,21 +1,23 @@
 package Juego;
 import java.net.Socket;
 
+import setup.Constantes;
+
 public class Partida {
 	private Tablero tablero;
 	private Jugador j1 = null, j2 = null;
 
 	public Partida(Socket s) {
 		if (j1 == null) {
-			j1 = new Jugador(s, true);
+			j1 = new Jugador(s,Constantes.COLOR_NEGRO);
 		} else {
-			j2 = new Jugador(s, false);
+			j2 = new Jugador(s,Constantes.COLOR_BLANCO);
 
 		}
 	}
 
 	public void addJugador(Socket s) {
-		j2 = new Jugador(s, false);
+		j2 = new Jugador(s, Constantes.COLOR_BLANCO);
 	}
 
 	public Jugador getJugador1() {
@@ -35,7 +37,7 @@ public class Partida {
 	}
 
 	public void jugar() {
-
+		tablero = new Tablero();
 	}
 
 }

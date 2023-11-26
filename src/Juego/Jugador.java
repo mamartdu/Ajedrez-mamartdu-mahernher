@@ -3,9 +3,9 @@ import java.net.Socket;
 
 public class Jugador {
 	private Socket socket;
-	private boolean color;
+	private int color;
 
-	public Jugador(Socket _socket, boolean _color) {
+	public Jugador(Socket _socket, int _color) {
 		this.socket = _socket;
 		this.color = _color;
 	}
@@ -18,11 +18,11 @@ public class Jugador {
 		this.socket = _socket;
 	}
 
-	public boolean getColor() {
+	public int getColor() {
 		return color;
 	}
 
-	public void setColor(boolean _color) {
+	public void setColor(int _color) {
 		this.color = _color;
 	}
 
