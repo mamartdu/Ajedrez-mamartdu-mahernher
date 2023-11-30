@@ -10,19 +10,23 @@ public class Torre extends Pieza {
 
 	@Override
 	public boolean movimientosPosibles(int xNuevo, int yNuevo, Tablero t) {
-		boolean[][] b = new boolean[8][8];
-		int x = super.getX();
-		int y = super.getY();
-		for (int i = 0; i < 8; i++) {
-			if (i != x) {
-				b[i][y] = true;
-			}
-			if (i != y) {
-				b[x][i] = true;
-			}
 
+		//¿¿ENROCAR??
+		//Movimientos de una torre : Cruz
+		boolean[][] tableroPosibles = new boolean[8][8];
+		int xActual = super.getX();
+		int yActual = super.getY();
+		for (int i = 0; i < 8; i++) {
+			tableroPosibles[i][yActual] = (i != xActual) ? true: false;
+			tableroPosibles[xActual][i] = (i != yActual) ? true: false;
 		}
-	
+		
+		if(tableroPosibles[xNuevo][yNuevo] && sePuedeMover(xNuevo,yNuevo, t)) {
+			if(t.getPiezaPosicion(xNuevo,yNuevo) == null || t.getPiezaPosicion(xNuevo,yNuevo).getColor() != getColor()) {
+				return true;
+			}
+		}		
+		
 		return false;
 	
 	}
