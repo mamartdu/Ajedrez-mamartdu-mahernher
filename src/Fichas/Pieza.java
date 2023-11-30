@@ -35,10 +35,8 @@ public abstract class Pieza implements Serializable{
 		public void setY(int y) {
 			this.y = y;
 		}
-
 	    
-		public abstract boolean[][] movimientosPosibles(Tablero tablero);
-
+		public abstract boolean movimientosPosibles(int xNuevo, int yNuevo, Tablero tablero);
 
 }
 
