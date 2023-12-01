@@ -28,14 +28,11 @@ public class Servidor {
 					DataInputStream dis = new DataInputStream(oConexion.getInputStream());
 					String nombre = dis.readLine();
 					int puerto = dis.readInt();
-					System.out.println(nombre);
-					System.out.println(puerto);
-					if (!jugadores.containsKey(nombre)) {
-						
+					System.out.println(nombre+" : "+oConexion.getInetAddress().getHostAddress()+":"+puerto);
+					if (!jugadores.containsKey(nombre)) {					
 						jugadores.put(nombre, new Jugador(puerto,oConexion.getInetAddress().getHostAddress()));
 					}
 					
-					System.out.println(jugadores.get(oConexion.getInetAddress().getHostAddress()));
 					Peticion listaJugadores = new Peticion(oConexion, jugadores);
 					pool.execute(listaJugadores);
 					

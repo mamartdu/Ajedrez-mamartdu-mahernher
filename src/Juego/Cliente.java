@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Cliente {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException {
 		Scanner entrada = new Scanner(System.in);
 		System.out.println("Introduce tu nombre");
 		String nombre = entrada.nextLine();
@@ -53,15 +53,27 @@ public class Cliente {
 
 				while (true) {
 					try (Socket s = ss.accept();) {
-						ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
-						ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+						ObjectOutputStream outputJugador1 = new ObjectOutputStream(s.getOutputStream());
+						ObjectInputStream inputJugador1 = new ObjectInputStream(s.getInputStream());
 						
-						System.out.println((Jugador)ois.readObject());
+						Juego juego = new Juego();
+						juego.colocarFichasIniciales();
+						Interfaz tablero = new Interfaz(juego);
+						
+						while(!tablero.finPartida()) {	
+							
+							tablero.mostrarTablero();
+							if(juego.isTurnoBlancas()) {
+								tablero.desbloquear();
+								juego.muevesPieza();	
+								tablero.bloquear();
+								outputJugador1.writeObject(tablero);
+								outputJugador1.flush();
+							}
+							
+						}
 					
 					} catch (IOException e) {
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -75,12 +87,27 @@ public class Cliente {
 			String nombreAux = entrada.nextLine();
 			Jugador jugador = jugadores.get(nombreAux);	
 			try (Socket sPersonal = new Socket(jugadores.get(nombreAux).getIp(), jugadores.get(nombreAux).getPuerto());
-							ObjectOutputStream oos = new ObjectOutputStream(sPersonal.getOutputStream());
-							ObjectInputStream ois = new ObjectInputStream(sPersonal.getInputStream());) {
+							ObjectOutputStream outputJugador1 = new ObjectOutputStream(sPersonal.getOutputStream());
+							ObjectInputStream inputJugador1 = new ObjectInputStream(sPersonal.getInputStream());) {
 				
-				oos.writeObject(jugador);
-				oos.flush();
-				oos.reset();
+				System.out.println("Ya estamos conectados");
+				Juego juego = new Juego();
+				juego.colocarFichasIniciales();
+				Interfaz tablero = new Interfaz(juego);
+				
+				while(!tablero.finPartida()) {	
+					
+					tablero.mostrarTablero();
+					if(juego.isTurnoNegras()) {
+						//MUEVEN NEGRAS
+						tablero.desbloquear();
+						juego.muevesPieza();	
+						tablero.bloquear();
+						outputJugador1.writeObject(tablero);
+						outputJugador1.flush();
+					}
+					
+				}
 				
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block

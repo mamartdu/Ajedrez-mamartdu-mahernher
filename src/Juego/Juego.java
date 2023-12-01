@@ -1,5 +1,7 @@
 package Juego;
 
+import java.io.Serializable;
+
 import Fichas.Alfil;
 import Fichas.Caballo;
 import Fichas.Reina;
@@ -8,7 +10,7 @@ import Fichas.Rey;
 import Fichas.Torre;
 import setup.Constantes;
 
-public class Juego{
+public class Juego implements Serializable{
 	private Tablero tablero;
 	private int turno;
 	
@@ -66,6 +68,8 @@ public class Juego{
 	
 	public boolean muevesPieza() {
 		//Dentro de muevesPieza , cambiamos turno
+		tablero.moverPieza(new Reina(Constantes.COLOR_BLANCO,4,7),4,5);
+		cambiarTurno();
 		return true;
 	}
 	
