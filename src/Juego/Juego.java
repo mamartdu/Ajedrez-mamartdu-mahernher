@@ -68,7 +68,6 @@ public class Juego implements Serializable{
 	
 	public boolean muevesPieza() {
 		//Dentro de muevesPieza , cambiamos turno
-		tablero.moverPieza(new Reina(Constantes.COLOR_BLANCO,4,7),4,5);
 		cambiarTurno();
 		return true;
 	}
