@@ -132,8 +132,7 @@ public class Interfaz extends JPanel{
 		return ventana;
 	}
 	
-	public void mostrar() {
-		
+	public void mostrarTablero() {		
 		ventana.add(this);
 		ventana.pack();
 		ventana.setVisible(true);
