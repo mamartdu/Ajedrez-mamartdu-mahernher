@@ -58,17 +58,24 @@ public class Cliente {
 						
 						Juego juego = new Juego();
 						juego.colocarFichasIniciales();
-						Interfaz tablero = new Interfaz(juego);
+						Interfaz tablero = new Interfaz(juego);	
 						
+						tablero.mostrarTablero();
+						System.out.println("nuevo tablero2");
 						while(!tablero.finPartida()) {	
 							
+							//tablero = (Interfaz)inputJugador1.readObject();
 							tablero.mostrarTablero();
-							if(juego.isTurnoBlancas()) {
-								tablero.desbloquear();
-								juego.muevesPieza();	
-								tablero.bloquear();
+							if(juego.isTurnoNegras()) {
+								System.out.println("ES TURNO DE NEGRAS");
+								//tablero.desbloquear();
+								//juego.muevesPieza();	
+								//tablero.bloquear();
 								outputJugador1.writeObject(tablero);
 								outputJugador1.flush();
+								outputJugador1.reset();
+							}else {
+								System.out.println("ES TURNO DE BLANCAS");
 							}
 							
 						}
@@ -94,17 +101,18 @@ public class Cliente {
 				Juego juego = new Juego();
 				juego.colocarFichasIniciales();
 				Interfaz tablero = new Interfaz(juego);
-				
-				while(!tablero.finPartida()) {	
-					
-					tablero.mostrarTablero();
-					if(juego.isTurnoNegras()) {
-						//MUEVEN NEGRAS
-						tablero.desbloquear();
+				while(!tablero.finPartida()) {									
+					tablero = (Interfaz)inputJugador1.readObject();
+					tablero.mostrarTablero();			
+					if(juego.isTurnoBlancas()) {
+						System.out.println("ES TURNO DE NEGRAS");
+						//tablero.desbloquear();
 						juego.muevesPieza();	
-						tablero.bloquear();
+						//tablero.bloquear();
 						outputJugador1.writeObject(tablero);
+						tablero.mostrarTablero();
 						outputJugador1.flush();
+						outputJugador1.reset();
 					}
 					
 				}
