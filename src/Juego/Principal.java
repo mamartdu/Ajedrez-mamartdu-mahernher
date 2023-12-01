@@ -9,7 +9,7 @@ public class Principal {
 			Tablero tablero = juego.getTablero();
 			
 			//Peon
-			System.out.println("---Peon---");
+			/*System.out.println("---Peon---");
 	
 			System.out.println(tablero.getPiezaPosicion(1,1).movimientosPosibles(1,2, tablero));
 			
@@ -31,8 +31,12 @@ public class Principal {
 			System.out.println(tablero.getPiezaPosicion(3,3).movimientosPosibles(4,3, tablero));
 			System.out.println(tablero.getPiezaPosicion(3,3).movimientosPosibles(3,5, tablero));
 			System.out.println(tablero.getPiezaPosicion(3,3).movimientosPosibles(2,2, tablero));
-			System.out.println(tablero.getPiezaPosicion(3,3).movimientosPosibles(4,4, tablero));
-
+			System.out.println(tablero.getPiezaPosicion(3,3).movimientosPosibles(4,4, tablero));*/
+			
+			Interfaz i =new Interfaz(juego);
+			i.mostrar();
+			
+			
 	}
 
 }

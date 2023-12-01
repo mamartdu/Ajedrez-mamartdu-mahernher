@@ -26,9 +26,9 @@ public class Juego{
 			tablero.colocarPieza(new Peon(Constantes.COLOR_BLANCO,i,6));
 			tablero.colocarPieza(new Peon(Constantes.COLOR_NEGRO,i,1));
 		}
+		tablero.colocarPieza(new Torre(Constantes.COLOR_NEGRO,7,0));
+		tablero.colocarPieza(new Torre(Constantes.COLOR_BLANCO,0,7));
 		tablero.colocarPieza(new Torre(Constantes.COLOR_NEGRO,0,0));
-		tablero.colocarPieza(new Torre(Constantes.COLOR_NEGRO,0,7));
-		tablero.colocarPieza(new Torre(Constantes.COLOR_BLANCO,7,0));
 		tablero.colocarPieza(new Torre(Constantes.COLOR_BLANCO,7,7));
 
 		tablero.colocarPieza(new Caballo(Constantes.COLOR_NEGRO,1,0));
@@ -42,10 +42,10 @@ public class Juego{
 		tablero.colocarPieza(new Alfil(Constantes.COLOR_BLANCO,2,7));
 		tablero.colocarPieza(new Alfil(Constantes.COLOR_BLANCO,5,7));
 
-		tablero.colocarPieza(new Rey(Constantes.COLOR_NEGRO,0,3));
-		tablero.colocarPieza(new Reina(Constantes.COLOR_NEGRO,0,4));
-		tablero.colocarPieza(new Rey(Constantes.COLOR_BLANCO,7,3));
-		tablero.colocarPieza(new Reina(Constantes.COLOR_BLANCO,7,4));
+		tablero.colocarPieza(new Rey(Constantes.COLOR_NEGRO,3,0));
+		tablero.colocarPieza(new Reina(Constantes.COLOR_NEGRO,4,0));
+		tablero.colocarPieza(new Rey(Constantes.COLOR_BLANCO,3,7));
+		tablero.colocarPieza(new Reina(Constantes.COLOR_BLANCO,4,7));
 	}
 
 	public int getTurno() {
