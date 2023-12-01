@@ -35,7 +35,7 @@ public class Alfil extends Pieza {
 			}
 		}
 
-		if (tableroPosibles[xNuevo][yNuevo] == true && sePuedeMover(xNuevo, yNuevo, tablero)) {
+		if (tableroPosibles[xNuevo][yNuevo] && sePuedeMover(xNuevo, yNuevo, tablero)) {
 			if (tablero.getPiezaPosicion(xNuevo, yNuevo) == null
 					|| tablero.getPiezaPosicion(xNuevo, yNuevo).getColor() != this.getColor()) {
 				return true;
@@ -45,7 +45,7 @@ public class Alfil extends Pieza {
 
 	}
 
-	public boolean sePuedeMover(int xNuevo, int yNuevo, Tablero tablero) {
+	private boolean sePuedeMover(int xNuevo, int yNuevo, Tablero tablero) {
 		boolean vacio = true;
 
 		int casillas = Math.abs(xNuevo - this.getX());
