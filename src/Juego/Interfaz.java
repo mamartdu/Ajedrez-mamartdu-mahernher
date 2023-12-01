@@ -23,7 +23,6 @@ public class Interfaz extends JPanel{
 	
 	public Interfaz(Juego juego) {
 		this.juego=juego;
-
 		
 		casillas = new JButton[8][8];
 		
@@ -83,9 +82,7 @@ public class Interfaz extends JPanel{
 					casillas[j][i].setBackground(new Color(246, 217, 183));
 				}
 				
-				casillas[j][i].addMouseListener(new pulsador(juego.getTablero().getPiezaPosicion(j, i),j,i));
-					
-					
+				casillas[j][i].addMouseListener(new pulsador(juego.getTablero().getPiezaPosicion(j, i),j,i));					
 			
 				add(casillas[j][i]);
 			}
@@ -118,13 +115,16 @@ public class Interfaz extends JPanel{
 				System.out.println("vacio y sin seleccionar");
 			}else {
 				//System.out.print(piezaSeleccionada.movimientosPosibles(x, y, juego.getTablero()));
+				System.out.println("seleccionar");
 				if(piezaSeleccionada.movimientosPosibles(x, y, juego.getTablero())) {
+					
 					System.out.println("muevo");
 					juego.getTablero().moverPieza(piezaSeleccionada, x, y);
 					juego.cambiarTurno();
-					//pintarTablero(juego);
+					pintarTablero(juego);
 					mostrarTablero();
-				}		
+				}	
+				piezaSeleccionada = null;
 			}
 			
 		}
@@ -188,7 +188,8 @@ public class Interfaz extends JPanel{
 		ventana.add(this);
 		ventana.pack();
 		ventana.setVisible(true);
-		//ventana.repaint();
+		ventana.revalidate();
+		ventana.repaint();
 	}
 	
 	public void pintarTablero(Juego juego) {
@@ -199,7 +200,7 @@ public class Interfaz extends JPanel{
 
 		for (int i = 0; i < casillas.length; i++) {
 			for (int j = 0; j < casillas[i].length; j++) {
-				casillas[j][i] = new JButton();
+				//casillas[j][i] = new JButton();
 
 				if(juego.getTablero().getPiezaPosicion(j, i) instanceof Peon) {
 					if(juego.getTablero().getPiezaPosicion(j, i).getColor()== Constantes.COLOR_BLANCO) {
@@ -245,7 +246,11 @@ public class Interfaz extends JPanel{
 					}
 				}
 				
-				
+				if(juego.getTablero().getPiezaPosicion(j, i) == null) {
+//					botones[i][j].setEnabled(false);
+					casillas[j][i].setIcon(null);
+				}
+							
 				casillas[j][i].setPreferredSize(new Dimension(60, 60));
 				if ((i + j + 1) % 2 == 0) {
 					casillas[j][i].setBackground(new Color(184, 103, 38));
@@ -254,9 +259,7 @@ public class Interfaz extends JPanel{
 				}
 				
 				casillas[j][i].addMouseListener(new pulsador(juego.getTablero().getPiezaPosicion(j, i),j,i));
-					
-					
-			
+						
 				add(casillas[j][i]);
 			}
 	}
