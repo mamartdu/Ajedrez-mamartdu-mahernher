@@ -23,29 +23,29 @@ public class Juego{
 	
 	public void colocarFichasIniciales() {
 		for(int i=0;i<8;i++) {
-			tablero.colocarPieza(new Peon(Constantes.COLOR_BLANCO,6,i));
-			tablero.colocarPieza(new Peon(Constantes.COLOR_NEGRO,1,i));
+			tablero.colocarPieza(new Peon(Constantes.COLOR_BLANCO,i,6));
+			tablero.colocarPieza(new Peon(Constantes.COLOR_NEGRO,i,1));
 		}
 		tablero.colocarPieza(new Torre(Constantes.COLOR_NEGRO,0,0));
 		tablero.colocarPieza(new Torre(Constantes.COLOR_NEGRO,0,7));
 		tablero.colocarPieza(new Torre(Constantes.COLOR_BLANCO,7,0));
 		tablero.colocarPieza(new Torre(Constantes.COLOR_BLANCO,7,7));
 
-		tablero.colocarPieza(new Caballo(Constantes.COLOR_NEGRO,0,1));
-		tablero.colocarPieza(new Caballo(Constantes.COLOR_NEGRO,0,6));
-		tablero.colocarPieza(new Caballo(Constantes.COLOR_BLANCO,7,1));
-		tablero.colocarPieza(new Caballo(Constantes.COLOR_BLANCO,7,6));
+		tablero.colocarPieza(new Caballo(Constantes.COLOR_NEGRO,1,0));
+		tablero.colocarPieza(new Caballo(Constantes.COLOR_NEGRO,6,0));
+		tablero.colocarPieza(new Caballo(Constantes.COLOR_BLANCO,1,7));
+		tablero.colocarPieza(new Caballo(Constantes.COLOR_BLANCO,6,7));
 
 
-		tablero.colocarPieza(new Alfil(Constantes.COLOR_NEGRO,0,2));
-		tablero.colocarPieza(new Alfil(Constantes.COLOR_NEGRO,0,5));
-		tablero.colocarPieza(new Alfil(Constantes.COLOR_BLANCO,7,2));
-		tablero.colocarPieza(new Alfil(Constantes.COLOR_BLANCO,7,5));
+		tablero.colocarPieza(new Alfil(Constantes.COLOR_NEGRO,2,0));
+		tablero.colocarPieza(new Alfil(Constantes.COLOR_NEGRO,5,0));
+		tablero.colocarPieza(new Alfil(Constantes.COLOR_BLANCO,2,7));
+		tablero.colocarPieza(new Alfil(Constantes.COLOR_BLANCO,5,7));
 
-		tablero.colocarPieza(new Rey(Constantes.COLOR_NEGRO,0,3));
-		tablero.colocarPieza(new Dama(Constantes.COLOR_NEGRO,0,4));
-		tablero.colocarPieza(new Rey(Constantes.COLOR_BLANCO,7,3));
-		tablero.colocarPieza(new Dama(Constantes.COLOR_BLANCO,7,4));
+		tablero.colocarPieza(new Rey(Constantes.COLOR_NEGRO,3,0));
+		tablero.colocarPieza(new Dama(Constantes.COLOR_NEGRO,4,0));
+		tablero.colocarPieza(new Rey(Constantes.COLOR_BLANCO,3,7));
+		tablero.colocarPieza(new Dama(Constantes.COLOR_BLANCO,4,7));
 	}
 
 	public int getTurno() {
