@@ -2,7 +2,7 @@ package Juego;
 
 import Fichas.Alfil;
 import Fichas.Caballo;
-import Fichas.Dama;
+import Fichas.Reina;
 import Fichas.Peon;
 import Fichas.Rey;
 import Fichas.Torre;
@@ -43,9 +43,9 @@ public class Juego{
 		tablero.colocarPieza(new Alfil(Constantes.COLOR_BLANCO,7,5));
 
 		tablero.colocarPieza(new Rey(Constantes.COLOR_NEGRO,0,3));
-		tablero.colocarPieza(new Dama(Constantes.COLOR_NEGRO,0,4));
+		tablero.colocarPieza(new Reina(Constantes.COLOR_NEGRO,0,4));
 		tablero.colocarPieza(new Rey(Constantes.COLOR_BLANCO,7,3));
-		tablero.colocarPieza(new Dama(Constantes.COLOR_BLANCO,7,4));
+		tablero.colocarPieza(new Reina(Constantes.COLOR_BLANCO,7,4));
 	}
 
 	public int getTurno() {

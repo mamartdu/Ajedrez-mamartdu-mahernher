@@ -2,14 +2,20 @@ package Fichas;
 
 import Juego.Tablero;
 
-public class Dama extends Pieza{
+public class Reina extends Pieza{
 
-	public Dama(int color,int x,int y) {
+	public Reina(int color,int x,int y) {
 		super(color,x,y);
 	}
 
 	@Override
 	public boolean movimientosPosibles(int xNuevo, int yNuevo, Tablero tablero) {
+		
+		//Fuera de matriz
+		if(xNuevo>7 || yNuevo>7) {
+			return false;
+		}
+		
 		boolean [][] tableroPosiblesAlfil=new boolean[8][8];
 		boolean [][] tableroPosiblesTorre=new boolean[8][8];
 		boolean [][] tableroPosiblesDama=new boolean[8][8];
@@ -50,7 +56,7 @@ public class Dama extends Pieza{
 		
 		if(tableroPosiblesDama[xNuevo][yNuevo] && sePuedeMover(xNuevo,yNuevo, tablero)) {
 			
-			if(tablero.getPiezaPosicion(xNuevo,yNuevo) != null || tablero.getPiezaPosicion(xNuevo,yNuevo).getColor()!=this.getColor()) {
+			if( (tablero.getPiezaPosicion(xNuevo,yNuevo) == null) || (tablero.getPiezaPosicion(xNuevo,yNuevo) != null && tablero.getPiezaPosicion(xNuevo,yNuevo).getColor()!=this.getColor())) {
 				return true;
 			}
 		}
