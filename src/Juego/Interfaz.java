@@ -1,6 +1,7 @@
 package Juego;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -126,6 +127,31 @@ public class Interfaz extends JPanel{
 			
 		}
 		
+	}
+	
+	public void bloquear() {
+        for (Component a : this.ventana.getComponents()) {
+            a.setEnabled(false);
+        }
+    }
+	
+	public void desbloquear() {
+        for (Component a : this.ventana.getComponents()) {
+            a.setEnabled(true);
+        }
+    }
+	
+	public boolean finPartida() {
+		//COMPROBACION DE SI HAY JAQUE MATE O NO
+		return false ;
+	}
+	
+	public boolean getTurnoBlancas() {
+		return this.juego.isTurnoBlancas();
+	}
+	
+	public boolean getTurnoNegras() {
+		return this.juego.isTurnoNegras();
 	}
 	
 	public JFrame getVentana() {
