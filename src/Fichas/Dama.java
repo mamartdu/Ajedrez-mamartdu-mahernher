@@ -6,7 +6,6 @@ public class Dama extends Pieza{
 
 	public Dama(int color,int x,int y) {
 		super(color,x,y);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -38,7 +37,7 @@ public class Dama extends Pieza{
 		
 		if(b[xNuevo][yNuevo]==true && intermediasVacias(xNuevo,yNuevo, tablero)) {
 			
-			if(tablero.getTablero()[xNuevo][yNuevo] != null || tablero.getTablero()[xNuevo][yNuevo].getColor()!=this.getColor()) {
+			if(tablero.getPiezaPosicion(xNuevo,yNuevo) != null || tablero.getPiezaPosicion(xNuevo,yNuevo).getColor()!=this.getColor()) {
 				return true;
 			}
 		}
@@ -50,27 +49,27 @@ public class Dama extends Pieza{
 		boolean vacio=true;
 		
 		int casillas=Math.abs(xNuevo-this.getX());
-		for(int i=1;i<casillas && vacio==true;i++){
+		for(int i=1;i<casillas && vacio;i++){
 			if(this.getX()>xNuevo) {
 				if(this.getY()>yNuevo) {//mirar hacia arriba
-					if(!(tablero.getTablero()[this.getX()-i][this.getY()-i] != null )) {
+					if(!(tablero.getPiezaPosicion(this.getX()-i,this.getY()-i) != null )) {
 						vacio=false;
 					}
 				}
 				else {
-					if(!(tablero.getTablero()[this.getX()-i][this.getY()+i] != null)) {
+					if(!(tablero.getPiezaPosicion(this.getX()-i,this.getY()+i) != null)) {
 						vacio=false;
 					}
 				}
 			}
 			else {
 				if(this.getY()>yNuevo) {//mirar hacia abajo
-					if(!(tablero.getTablero()[this.getX()+i][this.getY()-i] != null)) {
+					if(!(tablero.getPiezaPosicion(this.getX()+i,this.getY()-i) != null)) {
 						vacio=false;
 					}
 				}
 				else {
-					if(!(tablero.getTablero()[this.getX()+i][this.getY()+i] != null)) {
+					if(!(tablero.getPiezaPosicion(this.getX()+i,this.getY()+i) != null)) {
 						vacio=false;
 					}
 

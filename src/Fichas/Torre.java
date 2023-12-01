@@ -31,7 +31,7 @@ public class Torre extends Pieza {
 	
 	}
 
-	private boolean sePuedeMover(int xNuevo, int yNuevo, Tablero t) {
+	private boolean sePuedeMover(int xNuevo, int yNuevo, Tablero tablero) {
 		boolean sePuedeMover = true;
 		
 		if(getX() != xNuevo && getY() != yNuevo) {
@@ -39,17 +39,17 @@ public class Torre extends Pieza {
 		}	
 		// Sabemos que se mueve en horizontal
 		else if (getX() == xNuevo) {
-			sePuedeMoverVertical(xNuevo,yNuevo,t);			
+			sePuedeMoverVertical(xNuevo,yNuevo,tablero);			
 		}
 		// Sabemos que se mueve en vertical
 		else if (getY() == yNuevo) {
-			sePuedeMoverHorizontal(xNuevo,yNuevo,t);			
+			sePuedeMoverHorizontal(xNuevo,yNuevo,tablero);			
 		}
 
 		return sePuedeMover;
 	}
 	
-	private boolean sePuedeMoverVertical(int xNuevo, int yNuevo, Tablero t) {
+	private boolean sePuedeMoverVertical(int xNuevo, int yNuevo, Tablero tablero) {
 		boolean sePuedeMover = true;
 		boolean sumarCasillas = false;
 		
@@ -60,12 +60,12 @@ public class Torre extends Pieza {
 		}
 		
 		sumarCasillas = (yNuevo > getY()) ? true: false;
-		for (int i = 1; i < casillas && sePuedeMover == true; i++) {
+		for (int i = 1; i < casillas && sePuedeMover; i++) {
 			if (sumarCasillas == true) {
-				if (t.getPiezaPosicion(getX(),getY()+i) != null)
+				if (tablero.getPiezaPosicion(getX(),getY()+i) != null)
 					sePuedeMover = false;
 			} else {
-				if (t.getPiezaPosicion(getX(),getY()-i) != null)
+				if (tablero.getPiezaPosicion(getX(),getY()-i) != null)
 					sePuedeMover = false;
 			}
 
@@ -75,7 +75,7 @@ public class Torre extends Pieza {
 	}
 	
 	
-	private boolean sePuedeMoverHorizontal(int xNuevo, int yNuevo, Tablero t) {
+	private boolean sePuedeMoverHorizontal(int xNuevo, int yNuevo, Tablero tablero) {
 		boolean sePuedeMover = true;
 		boolean sumarCasillas = false;
 		
@@ -87,12 +87,12 @@ public class Torre extends Pieza {
 		}
 		
 		sumarCasillas = (xNuevo > getX()) ? true: false;
-		for (int i = 1; i < casillas ; i++) {
+		for (int i = 1; i < casillas  && sePuedeMover ; i++) {
 			if (sumarCasillas) {
-				if (t.getPiezaPosicion(getX()+i,getY()) != null)
+				if (tablero.getPiezaPosicion(getX()+i,getY()) != null)
 					sePuedeMover = false;
 			} else {
-				if (t.getPiezaPosicion(getX()-i,getY())!= null)
+				if (tablero.getPiezaPosicion(getX()-i,getY())!= null)
 					sePuedeMover = false;
 			}
 		}
