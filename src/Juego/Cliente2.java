@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Cliente {
+public class Cliente2 {
 	public static void main(String[] args) {
 		Scanner entrada = new Scanner(System.in);
 		System.out.println("Introduce tu nombre");

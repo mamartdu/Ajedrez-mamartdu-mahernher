@@ -34,7 +34,7 @@ public class Principal {
 			System.out.println(tablero.getPiezaPosicion(3,3).movimientosPosibles(4,4, tablero));*/
 			
 			Interfaz i =new Interfaz(juego);
-			i.mostrar();
+			i.mostrarTablero();
 			
 			
 	}

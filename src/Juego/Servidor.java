@@ -1,8 +1,10 @@
 package Juego;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,14 +15,29 @@ public class Servidor {
 		ExecutorService pool = Executors.newCachedThreadPool();
 		ServerSocket socket =null;
 		Socket oConexion = null;
-		Partida oPartida=null;
+
+		
+		HashMap<String, Jugador> jugadores = new HashMap<String,Jugador>();
+		
 		try {
-			socket = new ServerSocket(80);
+			socket = new ServerSocket(6666);
 			while (true) {
 				try {
 					oConexion = socket.accept();
-					oPartida =new Partida(oConexion);
-					pool.execute(oPartida);
+		
+					DataInputStream dis = new DataInputStream(oConexion.getInputStream());
+					String nombre = dis.readLine();
+					int puerto = dis.readInt();
+					System.out.println(nombre);
+					System.out.println(puerto);
+					if (!jugadores.containsKey(nombre)) {
+						
+						jugadores.put(nombre, new Jugador(puerto,oConexion.getInetAddress().getHostAddress()));
+					}
+					
+					System.out.println(jugadores.get(oConexion.getInetAddress().getHostAddress()));
+					Peticion listaJugadores = new Peticion(oConexion, jugadores);
+					pool.execute(listaJugadores);
 					
 				} catch (IOException e) {
 						// TODO Auto-generated catch block
