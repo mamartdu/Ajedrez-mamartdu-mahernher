@@ -17,6 +17,7 @@ public class Cliente {
 		String nombre = entrada.nextLine();
 		System.out.println("Introduce tu puerto");
 		int puerto = entrada.nextInt();
+		entrada.nextLine();
 		HashMap<String, Jugador> jugadores = null;
 
 		try (Socket s = new Socket("localhost", 6666);
@@ -45,6 +46,7 @@ public class Cliente {
 		System.out.println(
 				"Si desea esperar a que alguien le solicite una partida pulse 1 y si desea jugar con un usuario conectado concreto pulse 2: ");
 		int opcion = entrada.nextInt();
+		entrada.nextLine();
 		
 		if (opcion == 1) {
 			try (ServerSocket ss = new ServerSocket(puerto);) {
@@ -54,9 +56,12 @@ public class Cliente {
 						ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
 						ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
 						
-						System.out.println(ois.readLine());
+						System.out.println((Jugador)ois.readObject());
 					
 					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -67,16 +72,15 @@ public class Cliente {
 
 		}else {
 			System.out.println("Introduce la jugador con la que se desea conectar: ");
-			entrada.next();
 			String nombreAux = entrada.nextLine();
-			Jugador jugador = jugadores.get(nombreAux);
-			System.out.print(jugador);			
+			Jugador jugador = jugadores.get(nombreAux);	
 			try (Socket sPersonal = new Socket(jugadores.get(nombreAux).getIp(), jugadores.get(nombreAux).getPuerto());
 							ObjectOutputStream oos = new ObjectOutputStream(sPersonal.getOutputStream());
 							ObjectInputStream ois = new ObjectInputStream(sPersonal.getInputStream());) {
 				
-				oos.writeBytes("me conecto\n");
-				
+				oos.writeObject(jugador);
+				oos.flush();
+				oos.reset();
 				
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
