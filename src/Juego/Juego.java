@@ -53,7 +53,7 @@ public class Juego{
 	}
 	
 	public void cambiarTurno() {
-		this.turno = this.turno == Constantes.COLOR_NEGRO ? Constantes.COLOR_BLANCO : Constantes.COLOR_NEGRO; 
+		this.turno = (this.turno == Constantes.COLOR_NEGRO) ? Constantes.COLOR_BLANCO : Constantes.COLOR_NEGRO; 
 	}
 	
 	public boolean isTurnoNegras() {
@@ -63,5 +63,11 @@ public class Juego{
 	public boolean isTurnoBlancas() {
 		return this.turno == Constantes.COLOR_BLANCO;
 	}
+	
+	public boolean muevesPieza() {
+		//Dentro de muevesPieza , cambiamos turno
+		return true;
+	}
+	
 	
 }
