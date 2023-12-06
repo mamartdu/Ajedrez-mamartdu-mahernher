@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,9 +23,13 @@ public class Interfaz extends JPanel {
 	private JButton[][] casillas;
 	private JFrame ventana = new JFrame("Distribuidos");
 	private Pieza piezaSeleccionada = null;
+	private CyclicBarrier barrier = new CyclicBarrier(2);
+	private int color;
 
-	public Interfaz(Juego juego) {
+
+	public Interfaz(Juego juego,int color) {
 		this.juego = juego;
+		this.color = color;
 
 		casillas = new JButton[8][8];
 
@@ -88,6 +95,12 @@ public class Interfaz extends JPanel {
 		}
 		setLayout(new GridLayout(8, 8));
 	}
+	
+    public void cambioDeTurno() {
+        System.out.println("Turno cambiado");
+        juego.cambiarTurno();
+
+    }
 
 	private class pulsador implements MouseListener {
 		private Pieza pieza;
@@ -102,29 +115,58 @@ public class Interfaz extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (piezaSeleccionada == null) {
-				if (pieza != null) {
-					piezaSeleccionada = pieza;
+			
+			System.out.println("ficha selccionada: "+ piezaSeleccionada);
+			if(juego.getTurno() != color) { //comprobar turno
+				System.out.println("NO ES TU TURNO");
+			}else {
+				if (piezaSeleccionada == null) { //seleccionar ficha
+					if (pieza != null) {
+						if( pieza.getColor() == juego.getTurno()) {
+							piezaSeleccionada = pieza;
+							System.out.println("seleccionada");
+						}else {
+							System.out.println("NO ES DE TU COLOR");
+						}
+				
+					}else {
+						System.out.println("NO ES UNA FICHA");
+					}
+				} else {
+					
+					if ((piezaSeleccionada.getColor() == juego.getTurno()) && piezaSeleccionada.movimientosPosibles(x, y, juego.getTablero())  ) {
+						System.out.println("muevo");
+						juego.getTablero().moverPieza(piezaSeleccionada, x, y);
+						piezaSeleccionada = null;
+						cambioDeTurno(); 
+						System.out.println("turno de:"+juego.getTurno());
+						
+						pintarTablero(juego);
+						mostrarTablero();
+						try {
+							barrier.await();
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (BrokenBarrierException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					
+					piezaSeleccionada = null;
 				}
-				System.out.println("sin seleccionar");
-			} else {
-				System.out.println("seleccionada");
-				if ((piezaSeleccionada.getColor() == juego.getTurno()) && piezaSeleccionada.movimientosPosibles(x, y, juego.getTablero())  ) {
-					System.out.println("muevo");
-					juego.getTablero().moverPieza(piezaSeleccionada, x, y);
-					juego.cambiarTurno();
-					System.out.println("turno de:"+juego.getTurno());
-					pintarTablero(juego);
-					mostrarTablero();
-				}
-				piezaSeleccionada = null;
 			}
+		
 
 		}
+		
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
+	
+			
 
 		}
 
@@ -148,21 +190,23 @@ public class Interfaz extends JPanel {
 
 	}
 
-	public void bloquear() {
-		for (Component a : this.ventana.getComponents()) {
-			a.setEnabled(false);
-		}
-	}
-
-	public void desbloquear() {
-		for (Component a : this.ventana.getComponents()) {
-			a.setEnabled(true);
-		}
-	}
-
 	public boolean finPartida() {
 		// COMPROBACION DE SI HAY JAQUE MATE O NO
 		return false;
+	}
+	
+	   public CyclicBarrier getBarrier() {
+	        return barrier;
+	    }
+	
+	public Juego getJuego() {
+		// COMPROBACION DE SI HAY JAQUE MATE O NO
+		return juego;
+	}
+	
+	public Juego setJuego(Juego juego) {
+		
+		return this.juego = juego;
 	}
 
 	public boolean getTurnoBlancas() {
@@ -244,7 +288,13 @@ public class Interfaz extends JPanel {
 				} else {
 					casillas[j][i].setBackground(new Color(246, 217, 183));
 				}
-
+				
+				
+				MouseListener[] listado  = casillas[j][i].getMouseListeners();
+				for (MouseListener mouse : listado) {
+					casillas[j][i].removeMouseListener(mouse);
+				}
+				
 				casillas[j][i].addMouseListener(new pulsador(juego.getTablero().getPiezaPosicion(j, i), j, i));
 
 				add(casillas[j][i]);

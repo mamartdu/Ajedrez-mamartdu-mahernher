@@ -1,6 +1,8 @@
 package Juego;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import Fichas.Alfil;
 import Fichas.Caballo;
@@ -13,7 +15,7 @@ import setup.Constantes;
 public class Juego implements Serializable{
 	private Tablero tablero;
 	private int turno;
-	
+	 
 	public Juego() {
 		this.tablero=new Tablero();
 		turno = Constantes.COLOR_NEGRO;
@@ -71,6 +73,13 @@ public class Juego implements Serializable{
 		cambiarTurno();
 		return true;
 	}
+	
+	public boolean comprobarMate() {
+		//HacerMate
+		return false;
+	}
+	
+
 	
 	
 }

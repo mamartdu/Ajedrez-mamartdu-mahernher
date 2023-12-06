@@ -1,14 +1,21 @@
 package Juego;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.BrokenBarrierException;
+
+import setup.Constantes;
 
 public class Cliente {
 	public static void main(String[] args) throws ClassNotFoundException {
@@ -52,34 +59,48 @@ public class Cliente {
 			try (ServerSocket ss = new ServerSocket(puerto);) {
 
 				while (true) {
-					try (Socket s = ss.accept();) {
-						ObjectOutputStream outputJugador1 = new ObjectOutputStream(s.getOutputStream());
-						ObjectInputStream inputJugador1 = new ObjectInputStream(s.getInputStream());
-						
-						Juego juego = new Juego();
-						juego.colocarFichasIniciales();
-						Interfaz tablero = new Interfaz(juego);	
-						
-						tablero.mostrarTablero();
-						System.out.println("nuevo tablero2");
-						while(!tablero.finPartida()) {	
+					try (Socket s = ss.accept();
+							ObjectOutputStream outputJugador1 = new ObjectOutputStream(s.getOutputStream());
+							ObjectInputStream inputJugador1 = new ObjectInputStream(s.getInputStream());
+							BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));) {
 							
-							//tablero = (Interfaz)inputJugador1.readObject();
-							tablero.mostrarTablero();
-							if(juego.isTurnoNegras()) {
-								System.out.println("ES TURNO DE NEGRAS");
-								//tablero.desbloquear();
-								//juego.muevesPieza();	
-								//tablero.bloquear();
-								outputJugador1.writeObject(tablero);
-								outputJugador1.flush();
-								outputJugador1.reset();
-							}else {
-								System.out.println("ES TURNO DE BLANCAS");
+							System.out.print(br.readLine());
+						
+							Juego juego =new Juego();
+							juego.colocarFichasIniciales();
+							Interfaz i =new Interfaz(juego,Constantes.COLOR_BLANCO);
+							i.mostrarTablero();
+							
+							while(!i.getJuego().comprobarMate()) {
+								
+								Juego nuevojuego = (Juego) inputJugador1.readObject();
+								System.out.println(nuevojuego.getTurno());
+								i.setJuego(nuevojuego);
+								i.pintarTablero(nuevojuego);
+								
+								System.out.print("es tu turno, mueven blancas");
+								
+							    try {
+					                // Espera hasta que se mueva una ficha
+							    	i.getBarrier().await();
+									
+									outputJugador1.writeObject(i.getJuego());
+									outputJugador1.flush();
+									outputJugador1.reset();
+	
+					            } catch (BrokenBarrierException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
 							}
 							
-						}
-					
+							
+							
+							
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -95,27 +116,51 @@ public class Cliente {
 			Jugador jugador = jugadores.get(nombreAux);	
 			try (Socket sPersonal = new Socket(jugadores.get(nombreAux).getIp(), jugadores.get(nombreAux).getPuerto());
 							ObjectOutputStream outputJugador1 = new ObjectOutputStream(sPersonal.getOutputStream());
-							ObjectInputStream inputJugador1 = new ObjectInputStream(sPersonal.getInputStream());) {
+							ObjectInputStream inputJugador1 = new ObjectInputStream(sPersonal.getInputStream());
+        	        		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(sPersonal.getOutputStream()));) {
+							
+							bw.write("tu oponente es "+nombre + "\n");
+							bw.flush();
+							
+							Juego juego =new Juego();
+							juego.colocarFichasIniciales();
+							Interfaz i =new Interfaz(juego,Constantes.COLOR_NEGRO);
+							i.mostrarTablero();
+							System.out.println("Ya estamos conectados");
+							System.out.println("tu turno,eres negras");
+							
+							while(!i.getJuego().comprobarMate()) {
+							    try {
+					                // Espera hasta que se mueva una ficha
+							    	i.getBarrier().await();
+							    	
+									System.out.println(i.getJuego().getTablero().getPiezaPosicion(1, 1));
+									System.out.println(i.getJuego().getTablero().getPiezaPosicion(1, 2));
+									
+									outputJugador1.writeObject(i.getJuego());
+									outputJugador1.flush();
+									outputJugador1.reset();
+	
+					            } catch (BrokenBarrierException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							    
+							    
+								Juego nuevojuego = (Juego) inputJugador1.readObject();
+								System.out.println(nuevojuego.getTurno());
+								i.setJuego(nuevojuego);
+								i.pintarTablero(nuevojuego);
+								
+							}
 				
-				System.out.println("Ya estamos conectados");
-				Juego juego = new Juego();
-				juego.colocarFichasIniciales();
-				Interfaz tablero = new Interfaz(juego);
-				while(!tablero.finPartida()) {									
-					tablero = (Interfaz)inputJugador1.readObject();
-					tablero.mostrarTablero();			
-					if(juego.isTurnoBlancas()) {
-						System.out.println("ES TURNO DE NEGRAS");
-						//tablero.desbloquear();
-						juego.muevesPieza();	
-						//tablero.bloquear();
-						outputJugador1.writeObject(tablero);
-						tablero.mostrarTablero();
-						outputJugador1.flush();
-						outputJugador1.reset();
-					}
-					
-				}
+				
+				
+				
+				
 				
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
