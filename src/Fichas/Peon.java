@@ -4,26 +4,33 @@ import Juego.Tablero;
 import setup.Constantes;
 
 public class Peon extends Pieza {
-
+	
+	private int xInical;
+	private int yInical;
+	
+	
 	public Peon(int color, int x, int y) {
 		super(color, x, y);
+		this.xInical = x;
+		this.yInical = y;
+		
 	}
 
 	@Override
 	public boolean movimientosPosibles(int xNuevo, int yNuevo, Tablero tablero) {
 		int x = this.getX();
 		int y = this.getY();
+		int movPosibles = 1;
+		if(x == xInical && y == yInical) {
+			movPosibles = 2;
+		}
+		
 		if (this.getColor() == Constantes.COLOR_BLANCO) { // Blancas
-			//int movPosibles = y == 7 ? 2 : 1;
-			int movPosibles = 1;
-
-			
-			
-			
+	
 			if (yNuevo < y) {
 				if (y - yNuevo <= movPosibles && tablero.getPiezaPosicion(xNuevo, yNuevo) == null) { // mover una hacia																					// delante
 					return true;
-				} else if (x - xNuevo == 1 && (y - yNuevo == 1 || yNuevo - y == 1)) { // comer en diagonal
+				} else if (y - yNuevo == 1 && (x - xNuevo == 1 || xNuevo - x == 1)) { // comer en diagonal
 					if (tablero.getPiezaPosicion(xNuevo, yNuevo) != null) {
 						if(tablero.getPiezaPosicion(xNuevo, yNuevo).getColor() == Constantes.COLOR_NEGRO) {
 							return true;
@@ -32,13 +39,11 @@ public class Peon extends Pieza {
 				}
 			}
 		} else { // Negras
-			//int movPosibles = y == 1 ? 2 : 1;
-			int movPosibles = 1;
 			if (yNuevo > y) {
 				if (yNuevo - y <= movPosibles && tablero.getPiezaPosicion(xNuevo, yNuevo) == null) { // mover una hacia
 																					// delante
 					return true;
-				} else if (xNuevo - x == 1 && (y - yNuevo == 1 || yNuevo - y == 1)) { // comer en diagonal
+				} else if (yNuevo - y == 1 && (x - xNuevo == 1 || xNuevo - x == 1)) { // comer en diagonal
 					if (tablero.getPiezaPosicion(xNuevo, yNuevo) != null) {
 						if(tablero.getPiezaPosicion(xNuevo, yNuevo).getColor() == Constantes.COLOR_BLANCO) {
 							return true;

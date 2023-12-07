@@ -10,54 +10,49 @@ public class Caballo extends Pieza{
 
 	@Override
 	public boolean movimientosPosibles(int xNuevo, int yNuevo, Tablero tablero){
-		
-		boolean [][] tableroPosibles=new boolean[8][8];
-		int xActual=super.getX();
-		int yActual=super.getY();
+
+		int x = this.getX();
+		int y = this.getY();
 		
 		//Movimientos de un caballo : L (ambos sentidos)
-	    // Movimientos horizontales
-	    if (xActual > 1) {
-	        int i = xActual - 2;
-	        tableroPosibles[i][yActual - 1]=dentroTablero(tableroPosibles, i, yActual - 1);
-	        tableroPosibles[i][yActual + 1]=dentroTablero(tableroPosibles, i, yActual + 1);
-	    }
-	    
-	    if (xActual < 6) {
-	        int i = xActual + 2;
-	        tableroPosibles[i][yActual - 1]=dentroTablero(tableroPosibles, i, yActual - 1);
-	        tableroPosibles[i][yActual + 1]=dentroTablero(tableroPosibles, i, yActual + 1);
-	    }
 
-	    // Movimientos verticales
-	    if (yActual > 1) {
-	        int j = yActual - 2;
-	        tableroPosibles[xActual-1][j]=dentroTablero(tableroPosibles, xActual - 1, j);
-	        tableroPosibles[xActual+1][j]=dentroTablero(tableroPosibles, xActual + 1, j);
-	    }
-	    
-	    if (yActual < 6) {
-	        int j = yActual + 2;
-	        tableroPosibles[xActual-1][j]=dentroTablero(tableroPosibles, xActual - 1, j);
-	        tableroPosibles[xActual+1][j]=dentroTablero(tableroPosibles, xActual + 1, j);
-	    }
+		if(tablero.getPiezaPosicion(xNuevo,yNuevo) != null) { //ya tienes una ficha ahi
+			if(tablero.getPiezaPosicion(xNuevo,yNuevo).getColor()==this.getColor()) {
+				return false;
+			}
+			
+		}
+		System.out.println("------");
+		System.out.println(x);
+		System.out.println(y);
+		System.out.println("-*******-");
+		System.out.println(xNuevo);
+		System.out.println(yNuevo);
+		System.out.println("------");
+		
+		
+		if(x-xNuevo == 2 && (y-yNuevo == 1 || yNuevo-y == 1 )) {
+			return true;
+		}
+		
+		if(xNuevo-x == 2 && (y-yNuevo == 1 || yNuevo-y == 1 )) {
+			return true;
+		}
+		
+		
+		if(y-yNuevo == 2 && (x-xNuevo == 1 || xNuevo-x == 1 )) {
+			return true;
+		}
+		
+		if(yNuevo-y == 2 && (x-xNuevo == 1 || xNuevo-x == 1 )) {
+			System.out.println("***2***");
+			return true;
+		}
 
 		
-		if(tablero.getPiezaPosicion(xNuevo,yNuevo).getColor()!=this.getColor() || (tablero.getPiezaPosicion(xNuevo,yNuevo) != null)) {
-			return tableroPosibles[xNuevo][yNuevo];
-		}
-		else {
-			return false;
-		}
-			
-	}
+		return false;
 	
-	private boolean dentroTablero(boolean[][] b, int x, int y) {
-	    if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-	       return true;
-	    }else {
-	       return false;
-	    }
+			
 	}
 
 }
