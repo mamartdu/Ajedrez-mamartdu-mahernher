@@ -2,6 +2,7 @@ package Fichas;
 
 import java.io.Serializable;
 
+import Juego.Juego;
 import Juego.Tablero;
 
 public abstract class Pieza implements Serializable{
@@ -37,6 +38,9 @@ public abstract class Pieza implements Serializable{
 		}
 	    
 		public abstract boolean movimientosPosibles(int xNuevo, int yNuevo, Tablero tablero);
+
+		
+
 
 }
 

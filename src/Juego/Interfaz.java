@@ -157,8 +157,6 @@ public class Interfaz extends JPanel {
 					piezaSeleccionada = null;
 				}
 			}
-		
-
 		}
 		
 

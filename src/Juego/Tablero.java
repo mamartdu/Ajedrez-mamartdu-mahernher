@@ -1,8 +1,11 @@
 package Juego;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import Fichas.Pieza;
+import setup.Constantes;
 
 public class Tablero implements Serializable{
 	private Pieza[][] tablero;
@@ -54,5 +57,41 @@ public class Tablero implements Serializable{
 		pieza.setX(x);
 		pieza.setY(y);
 	}
+	
+	   public List<Pieza> getPiezasNegras() {
+	        List<Pieza> piezas = new ArrayList<Pieza>();
+
+	        for (int x = 0; x < 8; x++) {
+	            for (int y = 0; y < 8; y++) {
+	                Pieza pieza = this.tablero[x][y];
+	                if (pieza != null) {
+	                	if(pieza.getColor() == Constantes.COLOR_NEGRO) {
+	                		piezas.add(pieza);
+	                	}
+	                    
+	                }
+	            }
+	        }
+
+	        return piezas;
+	    }
+	   
+	   public List<Pieza> getPiezasBlancas() {
+	        List<Pieza> piezas = new ArrayList<Pieza>();
+
+	        for (int x = 0; x < 8; x++) {
+	            for (int y = 0; y < 8; y++) {
+	                Pieza pieza = this.tablero[x][y];
+	                if (pieza != null) {
+	                	if(pieza.getColor() == Constantes.COLOR_BLANCO) {
+	                		piezas.add(pieza);
+	                	}
+	                    
+	                }
+	            }
+	        }
+
+	        return piezas;
+	    }
 	
 }

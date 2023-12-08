@@ -22,13 +22,7 @@ public class Caballo extends Pieza{
 			}
 			
 		}
-		System.out.println("------");
-		System.out.println(x);
-		System.out.println(y);
-		System.out.println("-*******-");
-		System.out.println(xNuevo);
-		System.out.println(yNuevo);
-		System.out.println("------");
+
 		
 		
 		if(x-xNuevo == 2 && (y-yNuevo == 1 || yNuevo-y == 1 )) {
@@ -45,7 +39,6 @@ public class Caballo extends Pieza{
 		}
 		
 		if(yNuevo-y == 2 && (x-xNuevo == 1 || xNuevo-x == 1 )) {
-			System.out.println("***2***");
 			return true;
 		}
 

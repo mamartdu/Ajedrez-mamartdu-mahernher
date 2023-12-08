@@ -71,13 +71,16 @@ public class Cliente {
 							Interfaz i =new Interfaz(juego,Constantes.COLOR_BLANCO);
 							i.mostrarTablero();
 							
-							while(!i.getJuego().comprobarMate()) {
+							while(true) {
 								
 								Juego nuevojuego = (Juego) inputJugador1.readObject();
 								System.out.println(nuevojuego.getTurno());
 								i.setJuego(nuevojuego);
 								i.pintarTablero(nuevojuego);
 								
+								if(i.getJuego().comprobarMate()) {
+									break;
+								}
 								System.out.print("es tu turno, mueven blancas");
 								
 							    try {
@@ -87,6 +90,13 @@ public class Cliente {
 									outputJugador1.writeObject(i.getJuego());
 									outputJugador1.flush();
 									outputJugador1.reset();
+									
+									System.out.print(i.getJuego().getTurno());
+									System.out.print(i.getJuego().comprobarMate());
+									
+									if(i.getJuego().comprobarMate()) {
+										break;
+									}
 	
 					            } catch (BrokenBarrierException e) {
 									// TODO Auto-generated catch block
@@ -97,6 +107,8 @@ public class Cliente {
 								}
 								
 							}
+							
+							System.out.println("Patida Terminada");
 							
 							
 							
@@ -129,7 +141,7 @@ public class Cliente {
 							System.out.println("Ya estamos conectados");
 							System.out.println("tu turno,eres negras");
 							
-							while(!i.getJuego().comprobarMate()) {
+							while(true) {
 							    try {
 					                // Espera hasta que se mueva una ficha
 							    	i.getBarrier().await();
@@ -140,6 +152,10 @@ public class Cliente {
 									outputJugador1.writeObject(i.getJuego());
 									outputJugador1.flush();
 									outputJugador1.reset();
+									
+									if(i.getJuego().comprobarMate()) {
+										break;
+									}
 	
 					            } catch (BrokenBarrierException e) {
 									// TODO Auto-generated catch block
@@ -155,7 +171,14 @@ public class Cliente {
 								i.setJuego(nuevojuego);
 								i.pintarTablero(nuevojuego);
 								
+								if(i.getJuego().comprobarMate()) {
+									break;
+								}
+								
 							}
+							
+							
+							System.out.println("Patida Terminada");
 				
 				
 				

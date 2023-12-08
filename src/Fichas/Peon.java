@@ -28,7 +28,7 @@ public class Peon extends Pieza {
 		if (this.getColor() == Constantes.COLOR_BLANCO) { // Blancas
 	
 			if (yNuevo < y) {
-				if (y - yNuevo <= movPosibles && tablero.getPiezaPosicion(xNuevo, yNuevo) == null) { // mover una hacia																					// delante
+				if (y - yNuevo <= movPosibles && x == xNuevo && tablero.getPiezaPosicion(xNuevo, yNuevo) == null) { //  mover una hacia delante																				// delante
 					return true;
 				} else if (y - yNuevo == 1 && (x - xNuevo == 1 || xNuevo - x == 1)) { // comer en diagonal
 					if (tablero.getPiezaPosicion(xNuevo, yNuevo) != null) {
@@ -40,8 +40,8 @@ public class Peon extends Pieza {
 			}
 		} else { // Negras
 			if (yNuevo > y) {
-				if (yNuevo - y <= movPosibles && tablero.getPiezaPosicion(xNuevo, yNuevo) == null) { // mover una hacia
-																					// delante
+				if (yNuevo - y <= movPosibles && x == xNuevo && tablero.getPiezaPosicion(xNuevo, yNuevo) == null) { // mover una hacia delante
+																		
 					return true;
 				} else if (yNuevo - y == 1 && (x - xNuevo == 1 || xNuevo - x == 1)) { // comer en diagonal
 					if (tablero.getPiezaPosicion(xNuevo, yNuevo) != null) {
