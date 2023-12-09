@@ -10,44 +10,52 @@ import java.util.concurrent.Executors;
 
 
 public class Servidor {
+	
+	private static HashMap<String, Jugador> jugadores = new HashMap<String,Jugador>();
+	
 	public static void main(String[] args) {
 		
 		ExecutorService pool = Executors.newCachedThreadPool();
-		ServerSocket socket =null;
-		Socket oConexion = null;
+
 
 		
-		HashMap<String, Jugador> jugadores = new HashMap<String,Jugador>();
-		
-		try {
-			socket = new ServerSocket(6666);
-			while (true) {
-				try {
-					oConexion = socket.accept();
-		
-					DataInputStream dis = new DataInputStream(oConexion.getInputStream());
-					String nombre = dis.readLine();
-					int puerto = dis.readInt();
-					System.out.println(nombre+" : "+oConexion.getInetAddress().getHostAddress()+":"+puerto);
-					if (!jugadores.containsKey(nombre)) {					
-						jugadores.put(nombre, new Jugador(puerto,oConexion.getInetAddress().getHostAddress()));
-					}
-					
-					Peticion listaJugadores = new Peticion(oConexion, jugadores);
-					pool.execute(listaJugadores);
+		try (ServerSocket serverSocket = new ServerSocket(6666);){
+			
+	
+				while (true) {
+			        try {
+			            Socket connection = serverSocket.accept();     
+			                    // Crear un nuevo hilo para manejar la conexión del cliente
+			                    pool.execute(new Peticion(connection, jugadores));
+			                } catch (IOException e) {
+			                    e.printStackTrace();
+			                }
+			            }
 					
 				} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-				}
-			}
-		}catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-	
-		}finally {
-			pool.shutdown();
-		}
+				}finally {
+        			pool.shutdown();
+        		}
+			
 	}
+
+	public static synchronized HashMap<String, Jugador> getJugadoresActuales() {
+		return jugadores;
+	}
+	
+	public static synchronized void actualizaListado(String ip,String n, int puerto) {
+	       if (!jugadores.containsKey(n)) {
+	    	   jugadores.put(n, new Jugador(puerto, ip));
+           }
+	}
+	
+	public static synchronized void eliminarListado(String n) {
+	       if (jugadores.containsKey(n)) {
+	    	   jugadores.remove(n);
+	       }
+	}
+
 	
 }

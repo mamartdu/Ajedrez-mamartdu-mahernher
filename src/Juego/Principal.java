@@ -8,6 +8,9 @@ import setup.Constantes;
 public class Principal {
 
 	public static void main(String[] args) {
+		
+			//ESTA CLASE ES PARA HACER PRUEBAS
+		
 			Juego juego =new Juego();
 			juego.colocarFichasIniciales();
 			

@@ -116,7 +116,6 @@ public class Interfaz extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			
-			System.out.println("ficha selccionada: "+ piezaSeleccionada);
 			if(juego.getTurno() != color) { //comprobar turno
 				System.out.println("NO ES TU TURNO");
 			}else {
@@ -135,11 +134,9 @@ public class Interfaz extends JPanel {
 				} else {
 					
 					if ((piezaSeleccionada.getColor() == juego.getTurno()) && piezaSeleccionada.movimientosPosibles(x, y, juego.getTablero())  ) {
-						System.out.println("muevo");
 						juego.getTablero().moverPieza(piezaSeleccionada, x, y);
 						piezaSeleccionada = null;
 						cambioDeTurno(); 
-						System.out.println("turno de:"+juego.getTurno());
 						
 						pintarTablero(juego);
 						mostrarTablero();
@@ -152,6 +149,8 @@ public class Interfaz extends JPanel {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+					}else {
+						System.out.println("NO ES UN MOVIMIENTO VALIDO");
 					}
 					
 					piezaSeleccionada = null;
@@ -188,10 +187,6 @@ public class Interfaz extends JPanel {
 
 	}
 
-	public boolean finPartida() {
-		// COMPROBACION DE SI HAY JAQUE MATE O NO
-		return false;
-	}
 	
 	   public CyclicBarrier getBarrier() {
 	        return barrier;
@@ -225,6 +220,11 @@ public class Interfaz extends JPanel {
 		ventana.setVisible(true);
 		ventana.revalidate();
 		ventana.repaint();
+	}
+	
+	public void cerraTablero() {
+		ventana.dispose();
+
 	}
 
 	public void pintarTablero(Juego juego) {

@@ -132,12 +132,7 @@ public class Juego implements Serializable{
 	            for (int j = 0; j < 8; j++) {
 	                // Verificar si el movimiento es posible y evita el jaque mate
 	                if (pieza.movimientosPosibles(i, j, tablero) && !movimientoProvocaJaqueMate(pieza, i, j)) {
-	                    // Existe al menos un movimiento que evita el jaque mate
-	                	System.out.println("---------");
-	                	System.out.println(pieza);
-	                	System.out.println(i);
-	                	System.out.println(j);
-	                	System.out.println("---------");
+	                    // Existe al menos un movimiento que evita el jaque mate 
 	                    return false;
 	                    
 	                }
