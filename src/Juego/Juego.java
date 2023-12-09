@@ -75,7 +75,6 @@ public class Juego implements Serializable{
 	}
 	
 	public boolean muevesPieza() {
-		//Dentro de muevesPieza , cambiamos turno
 		cambiarTurno();
 		return true;
 	}

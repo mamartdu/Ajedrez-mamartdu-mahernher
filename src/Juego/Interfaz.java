@@ -21,16 +21,22 @@ import setup.Constantes;
 public class Interfaz extends JPanel {
 	private Juego juego;
 	private JButton[][] casillas;
-	private JFrame ventana = new JFrame("Distribuidos");
+	private JFrame ventana;
 	private Pieza piezaSeleccionada = null;
 	private CyclicBarrier barrier = new CyclicBarrier(2);
 	private int color;
+	private boolean termiando = false;
 
 
 	public Interfaz(Juego juego,int color) {
 		this.juego = juego;
 		this.color = color;
-
+		if(color == Constantes.COLOR_BLANCO) {
+			this.ventana = new JFrame("Blancas");
+		}else {
+			this.ventana = new JFrame("Negras");
+		}
+		
 		casillas = new JButton[8][8];
 
 		for (int i = 0; i < casillas.length; i++) {
@@ -97,7 +103,6 @@ public class Interfaz extends JPanel {
 	}
 	
     public void cambioDeTurno() {
-        System.out.println("Turno cambiado");
         juego.cambiarTurno();
 
     }
@@ -115,7 +120,6 @@ public class Interfaz extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			
 			if(juego.getTurno() != color) { //comprobar turno
 				System.out.println("NO ES TU TURNO");
 			}else {
@@ -123,7 +127,7 @@ public class Interfaz extends JPanel {
 					if (pieza != null) {
 						if( pieza.getColor() == juego.getTurno()) {
 							piezaSeleccionada = pieza;
-							System.out.println("seleccionada");
+							System.out.println("seleccionada: "+pieza.getClass().getSimpleName());
 						}else {
 							System.out.println("NO ES DE TU COLOR");
 						}
@@ -195,6 +199,21 @@ public class Interfaz extends JPanel {
 	public Juego getJuego() {
 		// COMPROBACION DE SI HAY JAQUE MATE O NO
 		return juego;
+	}
+	
+	public void terminar() {
+		// COMPROBACION DE SI HAY JAQUE MATE O NO
+		this.termiando = true;
+		
+		//eliminamos que puedan pulsar
+		for (int i = 0; i < casillas.length; i++) {
+			for (int j = 0; j < casillas[i].length; j++) {
+				MouseListener[] listado  = casillas[j][i].getMouseListeners();
+				for (MouseListener mouse : listado) {
+					casillas[j][i].removeMouseListener(mouse);
+				}
+			}
+		}
 	}
 	
 	public Juego setJuego(Juego juego) {

@@ -71,7 +71,7 @@ public class Cliente {
         							ObjectInputStream inputJugador1 = new ObjectInputStream(sJugador.getInputStream());
         							BufferedReader br = new BufferedReader(new InputStreamReader(sJugador.getInputStream()));) {
         							
-        							System.out.print(br.readLine());
+        							System.out.println(br.readLine());
         						
         							Juego juego =new Juego();
         							juego.colocarFichasIniciales();
@@ -86,9 +86,10 @@ public class Cliente {
         								
         								if(i.getJuego().comprobarMate()) {
     										System.out.println("Jaque mate, ganan negras");
+    										i. terminar();
         									break;
         								}
-        								System.out.print("es tu turno, mueven blancas");
+        								System.out.println("es tu turno, mueven blancas");
         								
         							    try {
         					                // Espera hasta que se mueva una ficha
@@ -98,11 +99,9 @@ public class Cliente {
         									outputJugador1.flush();
         									outputJugador1.reset();
         									
-        									System.out.print(i.getJuego().getTurno());
-        									System.out.print(i.getJuego().comprobarMate());
-        									
         									if(i.getJuego().comprobarMate()) {
         										System.out.println("Jaque mate, ganan blancas");
+        										i. terminar();
         										break;
         									}
         	
@@ -167,9 +166,6 @@ public class Cliente {
         							    try {
         					                // Espera hasta que se mueva una ficha
         							    	i.getBarrier().await();
-        							    	
-        									System.out.println(i.getJuego().getTablero().getPiezaPosicion(1, 1));
-        									System.out.println(i.getJuego().getTablero().getPiezaPosicion(1, 2));
         									
         									outputJugador1.writeObject(i.getJuego());
         									outputJugador1.flush();
@@ -177,6 +173,7 @@ public class Cliente {
         									
         									if(i.getJuego().comprobarMate()) {
         										System.out.println("Jaque mate, ganan negras");
+        										i. terminar();
         										break;
         									}
         	
@@ -190,13 +187,13 @@ public class Cliente {
         							    
         							    
         								Juego nuevojuego = (Juego) inputJugador1.readObject();
-        								System.out.println(nuevojuego.getTurno());
         								i.setJuego(nuevojuego);
         								i.pintarTablero(nuevojuego);
         								
         								
         								if(i.getJuego().comprobarMate()) {
         									System.out.println("Jaque mate, ganan blancas");
+        									i. terminar();
         									break;
         								}
         								System.out.println("es tu turno, mueven negras");

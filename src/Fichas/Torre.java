@@ -11,7 +11,6 @@ public class Torre extends Pieza {
 	@Override
 	public boolean movimientosPosibles(int xNuevo, int yNuevo, Tablero t) {
 
-		//¿¿ENROCAR??
 		//Movimientos de una torre : Cruz
 		boolean[][] tableroPosibles = new boolean[8][8];
 		int xActual = super.getX();
