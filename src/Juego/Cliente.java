@@ -137,7 +137,7 @@ public class Cliente {
             			for (String clave : jugadores.keySet()) {
             			    System.out.println(clave);
             			}
-                    	System.out.println("Introduce la jugador con la que se desea conectar: ");
+                    	System.out.println("Introduce el jugador con el que se desea conectar: ");
             			String nombreAux = entrada.nextLine();
             			Jugador jugador = jugadores.get(nombreAux);	
             			if(jugador == null) {
