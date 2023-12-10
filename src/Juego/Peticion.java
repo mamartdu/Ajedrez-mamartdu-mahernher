@@ -54,6 +54,7 @@ public class Peticion implements Runnable {
                }
                
                System.out.println("Desconectando a " + nombre);
+               s.close();
            } catch (IOException e) {
                e.printStackTrace();
            }
